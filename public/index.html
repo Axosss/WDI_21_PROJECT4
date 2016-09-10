@@ -1,12 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="GuessWhart">
 <head>
   <title>Hello</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-  <script src="js/app.js"></script>
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+ <!-- Vendor Script --> 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-resource.min.js"></script>
+<script src="//npmcdn.com/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.4.6/bluebird.min.js"></script>
+  
+
+<!-- Custom Scripts -->
+<script src="js/app.js"></script>
+<script src="/js/controllers/login.js"></script>
+<script src="/js/controllers/main.js"></script>
+<script src="/js/controllers/register.js"></script>
+<script src="/js/controllers/users.js"></script>
+
+<script src="/js/models/user.js"></script>
+
+<script src="/js/services/musuem.js"></script>
+<script src="/js/services/storage.js"></script>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css">
+
+<!-- Custom CSS -->
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+
 </head>
-<body>
-  <h1>Hello</h1>
+<body ng-controller="MainController as main">
+
+  <main class="container" ui-view></main>
+
+ <!--  <select ng-model="main.selectedCollection">
+    <option selected disabled value="">Please select a collection</option>
+    <option ng-repeat="collection in main.collections" ng-value="collection.id">{{ collection.name }}</option>
+  </select>
+
+  <button ng-click="main.play()" ng-disabled="!main.selectedCollection">PLAY</button>
+ -->
 </body>
 </html>
