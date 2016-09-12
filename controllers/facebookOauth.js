@@ -15,7 +15,7 @@ function login(req, res) {
     json: true
   }).then(function(access_token) {
     return request.get({
-      url: "https://graph.facebook.com/v2.5/me?fields=id,email,name,picture",
+      url: "https://graph.facebook.com/v2.5/me?fields=id,email,name,picture.width(300)",
       qs: access_token,
       json: true
     })
@@ -34,6 +34,7 @@ function login(req, res) {
             avatar: profile.picture ? profile.picture.data.url : null
           });
         }
+        console.log("The user is...", user);
         return user.save();
       })
   })

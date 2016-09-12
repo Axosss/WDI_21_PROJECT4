@@ -11,14 +11,6 @@ function MainController(musuem, $rootScope, TokenService, $state, $auth) {
 
   this.currentUser = $auth.getPayload();
   this.errorMessage = null;
-  
-//oAuth
-  this.authenticate = function(provider) {
-    $auth.authenticate(provider)
-      .then(function() {
-        self.currentUser = $auth.getPayload();
-      })
-  }
 
 // Token 
  this.logout = function logout() {

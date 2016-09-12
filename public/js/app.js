@@ -5,10 +5,10 @@ angular
   .config(Router);
 
 //oAuth
-oAuthConfig.$inject = ["$authProvider"];
-function oAuthConfig($authProvider) {
+oAuthConfig.$inject = ["$authProvider", "API_URL"];
+function oAuthConfig($authProvider, API_URL) {
   $authProvider.facebook({
-    url: '/oauth/facebook',
+    url: API_URL + '/oauth/facebook',
     clientId: "1090368224378228"
   })
 }  

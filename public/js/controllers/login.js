@@ -13,8 +13,17 @@ function LoginController(User, $state, $rootScope, $auth) {
     }).then(function(){
      $rootScope.$broadcast("loggedIn");
      $state.go("home");
-    })
+    });
+  }
 
+//oAuth
+  this.authenticate = function(provider) {
+    $auth.authenticate(provider)
+      .then(function() {
+        self.currentUser = $auth.getPayload();
+        $rootScope.$broadcast("loggedIn");
+        $state.go("home");
+      });
   }
 
 }
