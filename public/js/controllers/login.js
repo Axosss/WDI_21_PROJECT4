@@ -2,14 +2,19 @@ angular
   .module('GuessWhart')
   .controller('LoginController', LoginController);
 
-LoginController.$inject = ['User'];
-function LoginController(User) {
+LoginController.$inject = ['User', "$state", "$rootScope", "$auth"];
+function LoginController(User, $state, $rootScope, $auth) {
 
   this.credentials = {};
 
   this.submit = function() {
-    User.login(this.credentials, function(res) {
-      console.log(res);
+    $auth.login(this.credentials, {
+      url: "/api/login"
+    }).then(function(){
+     $rootScope.$broadcast("loggedIn");
+     $state.go("home");
     })
+
   }
+
 }

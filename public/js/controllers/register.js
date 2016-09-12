@@ -2,14 +2,16 @@ angular
   .module("GuessWhart")
   .controller("RegisterController", RegisterController);
 
-RegisterController.$inject = [];
-function RegisterController() {
-
+RegisterController.$inject = ['User', "$state", "$rootScope", "$auth"];
+function RegisterController(User, $state, $rootScope, $auth) {
   this.user = {};
 
   this.submit = function() {
-    User.register(this.user, function(res) {
-      console.log(res);
-    });
+    $auth.signup(this.user, {
+      url: "/api/register"
+    }).then(function(){
+     $rootScope.$broadcast("loggedIn");
+     $state.go("home");
+    })
   }
 }

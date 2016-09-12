@@ -8,5 +8,5 @@ function User($resource) {
     update: { method: "PUT" },
     login: { method: "POST", url: "/api/login" },
     register: { method: "POST", url: "/api/register" }
-  })
+  });
 }
