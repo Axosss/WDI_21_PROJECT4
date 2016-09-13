@@ -2,8 +2,8 @@ angular
   .module('GuessWhart')
   .controller('MainController', MainController);
 
-MainController.$inject = ["musuem", "$rootScope", "$state", "$auth"];
-function MainController(musuem, $rootScope, $state, $auth) {
+MainController.$inject = ["musuem", "$rootScope", "$state", "$auth", "$timeout"];
+function MainController(musuem, $rootScope, $state, $auth, $timeout) {
   var self = this;
 
   this.collections = [];
@@ -43,30 +43,51 @@ function MainController(musuem, $rootScope, $state, $auth) {
       });
     });
 
-  this.play = function() {
+  this.selectCollection = function() {
     musuem.getCollection(this.selectedCollection)
       .then(function(dataThatWeWant){
         $rootScope.$applyAsync(function() {
           self.collection = dataThatWeWant;
-
-          var randomIdx1 = Math.floor(Math.random() * (self.collection.length-1));
-          var randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
-          while(randomIdx2 === randomIdx1) {
-            randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
-          }
-          
-          console.log("ran 1 " + randomIdx1)
-          console.log("rand 2 " + randomIdx2)
-          
-//SPLICE the correct image from the array
-          self.collection.splice([randomIdx1], 1);
-//ALTERNATE POSITION SO ITS NOT ALWAYS THE IMAGE ON THE LEFT
-          self.position = !!(Math.round(Math.random()));
-
-          self.selected = self.collection[randomIdx1];
-          self.other = self.collection[randomIdx2]
+          self.play();
         });
       });
+  }
+
+  this.play = function() {
+
+    if(self.collection.length < 2) {
+      console.log("can't play anymore!");
+      return;
+    }
+
+    var randomIdx = Math.floor(Math.random() * (self.collection.length-1));
+    self.winner = self.collection.splice(randomIdx, 1)[0];
+
+    randomIdx = Math.floor(Math.random() * (self.collection.length-1));
+    self.loser = self.collection[randomIdx];
+    
+//SPLICE the correct image from the array
+    
+//ALTERNATE POSITION SO ITS NOT ALWAYS THE IMAGE ON THE LEFT
+    self.position = !!(Math.round(Math.random()));
+
+    self.a = self.position ? self.winner : self.loser;
+    self.b = self.position ? self.loser : self.winner;
+  }
+
+  this.check = function(image) {
+
+    if(image === this.winner) {
+      image.class = "green";
+      this.score += 1;
+    } else {
+      image.class = "red";
+    }
+
+    $timeout(function() {
+      image.class = "";
+      self.play();
+    }, 1000);
   }
 
 //   self.nextImages = function(dataThatWeWant) {
@@ -93,17 +114,6 @@ function MainController(musuem, $rootScope, $state, $auth) {
 //   }
 
   self.score = 0;
-
-  self.win = function() {
-    console.log('win');
-    self.score++ ;
-    self.class = "green"; 
-  }
-
-  self.lose = function() {
-    console.log('lose');
-    self.class = "red"; 
-  }
 
 }
 

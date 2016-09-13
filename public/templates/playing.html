@@ -1,22 +1,10 @@
 <h1>Playing</h1>
 <br>
-<h5>Which one was made by "{{ main.selected.artist }}" ?</h5>
+<h5>Which one was made by "{{ main.winner.artist }}" ?</h5>
 <br>
 
-
-<div ng-if="main.position">
-
-    <img ng-click="main.win()" ng-src="{{ main.selected.imageUrl }}" ng-class="main.class">
-    <img ng-click="main.lose()" ng-src="{{ main.other.imageUrl }}" ng-class="main.class" >
-
-</div>
-
-<div ng-if="!main.position">
-
-    <img ng-click="main.lose()" ng-src="{{ main.other.imageUrl }}" ng-class="main.class">
-    <img ng-click="main.win()" ng-src="{{ main.selected.imageUrl }}" ng-class="main.class">
-
-</div>
+<img ng-click="main.check(main.a)" ng-src="{{ main.a.imageUrl }}" ng-class="main.a.class">
+<img ng-click="main.check(main.b)" ng-src="{{ main.b.imageUrl }}" ng-class="main.b.class">
 
 
 <p>{{ main.score }} points</p>
