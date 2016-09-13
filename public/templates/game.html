@@ -1,11 +1,13 @@
-<h1>Game Page</h1>
+<div id="instructions">
+  <h1 class="font"><u>Instructions</u></h1>
 
-<select ng-model="main.selectedCollection">
-   <option selected disabled value="">Please select a collection</option>
-   <option ng-repeat="collection in main.collections" ng-value="collection.id">{{ collection.name }}</option>
-</select> 
+  <h3 class="font">Choose a collection</h3>
+  <select ng-model="main.selectedCollection">
+     <option selected disabled value="">Please select a collection</option>
+     <option ng-repeat="collection in main.collections" ng-value="collection.id">{{ collection.name }}</option>
+  </select> 
 
- <button ui-sref="playing" ng-click="main.play()" ng-disabled="!main.selectedCollection">PLAY</button>
-<br>
-
-
+  <h3 class="font">Choose a level</h3>
+   <button ui-sref="playing" ng-click="main.play()" ng-disabled="!main.selectedCollection">PLAY</button>
+  <br>
+</div>

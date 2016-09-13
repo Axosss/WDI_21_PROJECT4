@@ -69,6 +69,29 @@ function MainController(musuem, $rootScope, $state, $auth) {
       });
   }
 
+//   self.nextImages = function(dataThatWeWant) {
+//     $rootScope.$applyAsync(function() {
+//       self.collection = dataThatWeWant;
+
+//       var randomIdx1 = Math.floor(Math.random() * (self.collection.length-1));
+//       var randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
+//       while(randomIdx2 === randomIdx1) {
+//         randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
+//       }
+      
+//       console.log("ran 1 " + randomIdx1)
+//       console.log("rand 2 " + randomIdx2)
+      
+// //SPLICE the correct image from the array
+//       self.collection.splice([randomIdx1], 1);
+// //ALTERNATE POSITION SO ITS NOT ALWAYS THE IMAGE ON THE LEFT
+//       self.position = !!(Math.round(Math.random()));
+
+//       self.selected = self.collection[randomIdx1];
+//       self.other = self.collection[randomIdx2]
+//     });
+//   }
+
   self.score = 0;
 
   self.win = function() {
@@ -83,14 +106,6 @@ function MainController(musuem, $rootScope, $state, $auth) {
   }
 
 }
-  // this.removeImages = function() {
-  //   var removed = collection.splice(randomIdx1, 1);
-  // }
-
-    
-
-///////////////////////////////////////////////////////////////////
- 
 
   // this.timer = function(){
   //   var time = 60
