@@ -3,17 +3,22 @@
 <h5>Which one was made by "{{ main.selected.artist }}" ?</h5>
 <br>
 
-<p id="test"></p>
 
 <div ng-if="main.position">
-  <img ng-click="main.win()" ng-src="{{ main.selected.imageUrl }}" id="qwerty">
-  <img ng-click="main.loss()" ng-src="{{ main.other.imageUrl }}">
+
+    <img ng-click="main.win()" ng-src="{{ main.selected.imageUrl }}" ng-class="main.class">
+    <img ng-click="main.lose()" ng-src="{{ main.other.imageUrl }}" ng-class="main.class" >
+
 </div>
 
 <div ng-if="!main.position">
-  <img ng-click="main.loss()" ng-src="{{ main.other.imageUrl }}">
-  <img ng-click="main.win()" ng-src="{{ main.selected.imageUrl }}">
+
+    <img ng-click="main.lose()" ng-src="{{ main.other.imageUrl }}" ng-class="main.class">
+    <img ng-click="main.win()" ng-src="{{ main.selected.imageUrl }}" ng-class="main.class">
+
 </div>
 
 
 <p>{{ main.score }} points</p>
+
+

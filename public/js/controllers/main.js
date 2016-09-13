@@ -3,7 +3,7 @@ angular
   .controller('MainController', MainController);
 
 MainController.$inject = ["musuem", "$rootScope", "$state", "$auth"];
-function MainController(musuem, $rootScope,$state, $auth) {
+function MainController(musuem, $rootScope, $state, $auth) {
   var self = this;
 
   this.collections = [];
@@ -49,38 +49,40 @@ function MainController(musuem, $rootScope,$state, $auth) {
         $rootScope.$applyAsync(function() {
           self.collection = dataThatWeWant;
 
-          var randomIdx1 = Math.floor(Math.random() * self.collection.length-1);
-          var randomIdx2 = Math.floor(Math.random() * self.collection.length-1);
+          var randomIdx1 = Math.floor(Math.random() * (self.collection.length-1));
+          var randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
           while(randomIdx2 === randomIdx1) {
-            randomIdx2 = Math.floor(Math.random() * self.collection.length);
+            randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
           }
           
           console.log("ran 1 " + randomIdx1)
           console.log("rand 2 " + randomIdx2)
-          console.log("before splice " + self.collection.length)
+          
+//SPLICE the correct image from the array
           self.collection.splice([randomIdx1], 1);
-          self.collection.splice([randomIdx2], 1);
-          console.log("after splice " + self.collection.length)
-
+//ALTERNATE POSITION SO ITS NOT ALWAYS THE IMAGE ON THE LEFT
           self.position = !!(Math.round(Math.random()));
 
           self.selected = self.collection[randomIdx1];
           self.other = self.collection[randomIdx2]
-          console.log(self.collection)
-          console.log(self.selected)
-          console.log(self.other)
         });
       });
   }
-// console.log(self.selected.artist)
 
   self.score = 0;
 
   self.win = function() {
     console.log('win');
-    self.score++ ; 
+    self.score++ ;
+    self.class = "green"; 
   }
 
+  self.lose = function() {
+    console.log('lose');
+    self.class = "red"; 
+  }
+
+}
   // this.removeImages = function() {
   //   var removed = collection.splice(randomIdx1, 1);
   // }
@@ -99,7 +101,7 @@ function MainController(musuem, $rootScope,$state, $auth) {
   //     // }
   //   });
   // }
-}
+
 
 
 

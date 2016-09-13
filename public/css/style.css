@@ -12,3 +12,11 @@ font-family: 'Playfair Display', serif;
 .card img {
   width: 100%;
 }
+
+.red {
+  border: 5px solid green;
+}
+.green {
+  border: 5px solid green;
+}
+
