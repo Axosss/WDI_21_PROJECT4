@@ -2,8 +2,8 @@ angular
   .module('GuessWhart')
   .service('musuem', musuem);
 
-musuem.$inject = ["$http", "$window", "storage"];
-function musuem($http, $window, storage) {
+musuem.$inject = ["$http", "$window", "storage", "BROOKLYN_API"];
+function musuem($http, $window, storage, BROOKLYN_API) {
 
   this.getCollections = function() {
 
@@ -14,7 +14,7 @@ function musuem($http, $window, storage) {
       });
     }
 
-    return $http.get("https://www.brooklynmuseum.org/api/v2/collection", {
+    return $http.get(BROOKLYN_API + "collection", {
       headers: { api_key: 'XuDPLIobCjN48cQ0V7ZrZ6wKPcqeDKUU' }
     })
     .then(function(res) {
@@ -29,20 +29,19 @@ function musuem($http, $window, storage) {
   }
 
   this.getCollection = function(id) {
-
     var dataThatWeWant = storage.getData('collections'+id);
     if(dataThatWeWant) {
       return new $window.Promise(function(resolve) {
         resolve(dataThatWeWant);
       });
     }
-    return $http.get("https://www.brooklynmuseum.org/api/v2/collection/"+id, {
+    return $http.get(BROOKLYN_API + "collection/"+id, {
       headers: { api_key: 'XuDPLIobCjN48cQ0V7ZrZ6wKPcqeDKUU' }
     })
     .then(function(res) {
       var arrayOfPromises = res.data.data.highlight_images.map(function(image) {
-        return $http.get("https://www.brooklynmuseum.org/api/v2/object/" + image.id, {
-          headers: { api_key: 'XuDPLIobCjN48cQ0V7ZrZ6wKPcqeDKUU' }
+        return $http.get(BROOKLYN_API + "object/" + image.id, {
+          headers: { api_key: 'XuDPLIobCjN48cQ0V7ZrZ6wKPcqeDKUU' }  
         });
       });
 
@@ -51,12 +50,12 @@ function musuem($http, $window, storage) {
           var dataThatWeWant = res.map(function(response) {
 
             var artistsName = response.data.data.artists.map(function(artist) {
-              artist.name;
+              return artist.name;
             }).join(", ");
 
             return {
               id: response.data.data.id,
-              imageUrl: response.data.data.images[0].standard_size_url,
+              imageUrl: "http://" + response.data.data.images[0].standard_size_url,
               artist: artistsName
             }
           });

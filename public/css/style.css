@@ -8,3 +8,7 @@ font-family: 'Playfair Display', serif;
 .big {
   font-size: 90px;
 }
+
+.card img {
+  width: 100%;
+}

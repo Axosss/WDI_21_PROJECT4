@@ -19,11 +19,11 @@
 <script src="/js/controllers/register.js"></script>
 <script src="/js/controllers/users.js"></script>
 
+
 <script src="/js/models/user.js"></script>
 
 <script src="/js/services/musuem.js"></script>
 <script src="/js/services/storage.js"></script>
-<script src="/js/services/tokenService.js"></script>
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css">
@@ -64,10 +64,15 @@
   </header>
 
   <main class="container" ui-view></main>
+<!-- 
+  <select ng-model="main.selectedCollection">
+     <option selected disabled value="">Please select a collection</option>
+     <option ng-repeat="collection in main.collections" ng-value="collection.id">{{ collection.name }}</option>
+  </select> 
 
-<hello texte="Yooooo"></hello>
- <!-- 
-  <button ng-click="main.play()" ng-disabled="!main.selectedCollection">PLAY</button>
- -->
+   <button ng-click="main.play()" ng-disabled="!main.selectedCollection">PLAY</button>
+
+<hello texte="Yooooo"></hello> -->
+ 
 </body>
 </html>

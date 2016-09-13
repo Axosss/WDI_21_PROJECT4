@@ -1,14 +1,18 @@
 angular
   .module('GuessWhart', ['ui.router', 'ngResource', 'angular-jwt', 'satellizer'])
-  .constant("API_URL", "http://localhost:3000/api")
+  .constant("BROOKLYN_API", "https://www.brooklynmuseum.org/api/v2/")
   .config(oAuthConfig)
   .config(Router);
 
 //oAuth
-oAuthConfig.$inject = ["$authProvider", "API_URL"];
-function oAuthConfig($authProvider, API_URL) {
+oAuthConfig.$inject = ["$authProvider", "BROOKLYN_API"];
+function oAuthConfig($authProvider, BROOKLYN_API) {
+  $authProvider.httpInterceptor = function(config) {
+    return !config.url.match(BROOKLYN_API);
+  }
+  
   $authProvider.facebook({
-    url: API_URL + '/oauth/facebook',
+    url: '/api/oauth/facebook',
     clientId: "1090368224378228"
   })
 }  
@@ -39,8 +43,11 @@ function Router($stateProvider, $urlRouterProvider) {
     })
     .state("game", {
       url: "/game",
-      templateUrl: "/templates/game.html",
-      controller: ""
+      templateUrl: "/templates/game.html"
+    })
+    .state("playing", {
+      url: "/playing",
+      templateUrl: "/templates/playing.html"
     });
 
   $urlRouterProvider.otherwise("/");
