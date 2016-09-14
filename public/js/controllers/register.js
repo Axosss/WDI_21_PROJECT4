@@ -11,7 +11,6 @@ function RegisterController(User, $state, $rootScope, $auth) {
       url: "/api/register"
     }).then(function(){
      $rootScope.$broadcast("loggedIn");
-     $state.go("home");
     })
   }
 }

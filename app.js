@@ -8,7 +8,6 @@ var environment = app.get('env');
 var routes = require('./config/routes');
 var databaseUri = require('./config/db')(environment);
 
-
 mongoose.connect(databaseUri);
 
 var port = process.env.PORT || 3000;
@@ -17,14 +16,12 @@ if('test' !== environment) {
   app.use(require('morgan')('dev'));
 }
 
-app.use(express.static('public'));
-
-// app.use('/', routes);
-
 app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static('public'));
 
 app.use('/api', routes);
 

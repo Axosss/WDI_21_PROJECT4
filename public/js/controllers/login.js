@@ -12,7 +12,6 @@ function LoginController(User, $state, $rootScope, $auth) {
       url: "/api/login"
     }).then(function(){
      $rootScope.$broadcast("loggedIn");
-     $state.go("home");
     });
   }
 
@@ -22,7 +21,6 @@ function LoginController(User, $state, $rootScope, $auth) {
       .then(function() {
         self.currentUser = $auth.getPayload();
         $rootScope.$broadcast("loggedIn");
-        $state.go("home");
       });
   }
 

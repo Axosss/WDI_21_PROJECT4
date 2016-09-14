@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-sm-6 col-md-4" ng-repeat="user in users.all">
     <div class="card">
-      <img class="card-img-top" src="http://www.primephilippines.com/images/employees/kirzza.jpg" alt="Profile Picture">
+      <img class="card-img-top" src="{{ user.avatar }}" alt="Profile Picture">
       <div class="card-block">
         <h4 class="card-title">{{ user.username }}</h4>
         <p class="card-text">{{ user.email }}</p>

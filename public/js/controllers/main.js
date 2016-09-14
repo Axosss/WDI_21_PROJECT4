@@ -9,9 +9,9 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout) {
   this.collections = [];
   this.collection = [];
   this.selectedCollection = null;
-
   this.currentUser = $auth.getPayload();
   this.errorMessage = null;
+  self.score = 0;
 
 // Token 
  this.logout = function logout() {
@@ -22,6 +22,7 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout) {
 
 //RootScope to let main know when someone is loggedIn 
   $rootScope.$on("loggedIn", function() {
+    $state.go("home");
     self.currentUser = $auth.getPayload();
     console.log("lets get the token", self.currentUser);
   });
@@ -35,7 +36,10 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout) {
     self.errorMessage = null;
   });
 
+
 // Brooklyn API
+
+
   musuem.getCollections()
     .then(function(dataThatWeWant) {
       $rootScope.$applyAsync(function() {
@@ -54,29 +58,40 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout) {
   }
 
   this.play = function() {
-
+    self.gameEnd = false;
+    // self.timer();
     if(self.collection.length < 2) {
-      console.log("can't play anymore!");
+      self.gameEnd = true;
+      // save to leaderboard => need a special stuff in the user model
       return;
     }
 
     var randomIdx = Math.floor(Math.random() * (self.collection.length-1));
+    //SPLICE the correct image from the array
     self.winner = self.collection.splice(randomIdx, 1)[0];
-
     randomIdx = Math.floor(Math.random() * (self.collection.length-1));
     self.loser = self.collection[randomIdx];
-    
-//SPLICE the correct image from the array
-    
-//ALTERNATE POSITION SO ITS NOT ALWAYS THE IMAGE ON THE LEFT
-    self.position = !!(Math.round(Math.random()));
+    //ALTERNATE IMAGE POSITION 
+    self.position = !!(Math.round(Math.random())); // 1 or 0 so !! => true or false
 
     self.a = self.position ? self.winner : self.loser;
     self.b = self.position ? self.loser : self.winner;
+ 
+
+ //////////////////////////////////////
+ // Other level : Who is the painter //
+ //////////////////////////////////////
+
+    var randomIdx = Math.floor(Math.random() * (self.collection.length-1));
+    //SPLICE the correct image from the array
+    self.winner = self.collection.splice(randomIdx, 1)[0];
+    randomIdx = Math.floor(Math.random() * (self.collection.length-1));
+    self.loser1 = self.collection[randomIdx];
+    self.loser2 = self.collection[randomIdx];
+    self.loser3 = self.collection[randomIdx];
   }
 
   this.check = function(image) {
-
     if(image === this.winner) {
       image.class = "green";
       this.score += 1;
@@ -87,70 +102,37 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout) {
     $timeout(function() {
       image.class = "";
       self.play();
-    }, 1000);
+    }, 500);
   }
 
-//   self.nextImages = function(dataThatWeWant) {
-//     $rootScope.$applyAsync(function() {
-//       self.collection = dataThatWeWant;
-
-//       var randomIdx1 = Math.floor(Math.random() * (self.collection.length-1));
-//       var randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
-//       while(randomIdx2 === randomIdx1) {
-//         randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
-//       }
-      
-//       console.log("ran 1 " + randomIdx1)
-//       console.log("rand 2 " + randomIdx2)
-      
-// //SPLICE the correct image from the array
-//       self.collection.splice([randomIdx1], 1);
-// //ALTERNATE POSITION SO ITS NOT ALWAYS THE IMAGE ON THE LEFT
-//       self.position = !!(Math.round(Math.random()));
-
-//       self.selected = self.collection[randomIdx1];
-//       self.other = self.collection[randomIdx2]
-//     });
-//   }
-
-  self.score = 0;
-
+// #Timer
+  self.timer = function(){
+    self.time = 5;
+    self.timer = setInterval(function() {
+      self.time--;
+// console.log(self.time)
+      if(self.time === 0) {
+        // end games
+        // console.log(self.time)
+        self.time = 0;
+        self.gameEnd=true;
+      }
+    }, 1000);
+  } 
 }
 
-  // this.timer = function(){
-  //   var time = 60
-  //   timer = setInterval(function() {
-  //     time--;
-  //     // if(time===0){
-  //     //   end games
-  //     // }
-  //   });
-  // }
+
+/// Test function to disable click event 
+//   self.flag = 0;
+//   self.disableClick = function(n) {
+//      if (n && n !== self.flag) {
+//          self.flag = n;
+//          alert("Clicked!");
+//      }
+//      return false;
+//   }
 
 
 
 
-// Steps : 
-// #Display one painting 
-// <img src="www.whatever.com/jkfwkjfewbjnke">
-// #Display one painting from the selected collection 
-//    X DONE 
-// #Random function that select 2 paintings from the collection
-//    X DONE 
-// #Show stuff
-//   #Show name of the painter we want the user to find: 
-//    X DONE 
 
-// #Game logic : 
-//   If the painting clicked is the same ==> border green and title green, next level, + points,   timer = 0, picture fade
-  
-//   If not : border red. next level
-  
-//   Ends when : No time or No more paintings 
-
-//   No more paintings : Array of number that is the lenght of the number of object in the collection 
-
-// #Timer
-
-
-// #Points
