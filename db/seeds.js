@@ -14,25 +14,29 @@ User.create([
     email: "axelberdugo@gmail.com",
     password: "password",
     passwordConfirmation: "password",
-    avatar: "http://www.fillmurray.com/300/300"
+    avatar: "http://www.fillmurray.com/300/300",
+    score: 0
   },{
     username: "mickyginger",
     email: "mike.hayden@ga.co",
     password: "password",
     passwordConfirmation: "password",
-    avatar: "http://www.fillmurray.com/300/300"
+    avatar: "http://www.fillmurray.com/300/300",
+    score: 0
   },{
     username: "roro",
     email: "rosanna.rossington@ga.co",
     password: "password",
     passwordConfirmation: "password",
-    avatar: "http://www.fillmurray.com/300/300"
+    avatar: "http://www.fillmurray.com/300/300",
+    score: 0
   },{
     username: "chansec",
     email: "chanse.campbell@ga.co",
     password: "password",
     passwordConfirmation: "password",
-    avatar: "http://www.fillmurray.com/300/300"
+    avatar: "http://www.fillmurray.com/300/300",
+    score: 0
   }
 ], function(err, users) {
   console.log(users);

@@ -2,28 +2,36 @@ angular
   .module('GuessWhart')
   .controller('MainController', MainController);
 
-MainController.$inject = ["musuem", "$rootScope", "$state", "$auth", "$timeout", "$interval"];
-function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval) {
+MainController.$inject = ["musuem", "$rootScope", "$state", "$auth", "$timeout", "$interval", "User"];
+function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, User) {
   var self = this;
 
   this.collections = [];
   this.collection = [];
   this.selectedCollection = null;
+  this.level;
+  this.levelToggle;
   this.currentUser = $auth.getPayload();
+// var userData = $auth.getPayload();
+
+// User.get({ id: userData._id }, function(user) {
+//   self.currenUser = user;
+// });
+
   this.errorMessage = null;
   this.score = 0;
   this.shuffledArtists;
   this.roundComplete;
   // this.time = 5;
 
-// Token 
- this.logout = function logout() {
-   $auth.logout();
-   this.currentUser = null;
-   $state.go("home");
- }
+  // Token 
+  this.logout = function logout() {
+    $auth.logout();
+    this.currentUser = null;
+    $state.go("home");
+  }
 
-//RootScope to let main know when someone is loggedIn 
+  //RootScope to let main know when someone is loggedIn 
   $rootScope.$on("loggedIn", function() {
     $state.go("home");
     self.currentUser = $auth.getPayload();
@@ -40,9 +48,7 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval) 
   });
 
 
-// Brooklyn API
-
-
+  // Brooklyn API
   musuem.getCollections()
     .then(function(dataThatWeWant) {
       $rootScope.$applyAsync(function() {
@@ -55,19 +61,25 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval) 
       .then(function(dataThatWeWant){
         $rootScope.$applyAsync(function() {
           self.collection = dataThatWeWant;
+          
+          if(self.level === "level1") {
+            self.levelToggle = true;
+          }
+          if(self.level === "level2") {
+            self.levelToggle = false;
+          }
           self.play();
+
         });
       });
   }
 
   this.play = function() {
-    self.score = 0
     self.gameEnd = false;
     self.roundComplete = false;
     // self.beginTimer = $interval(self.timerFunction, 1000);
     if(self.collection.length < 2) {
       self.gameEnd = true;
-      // save to leaderboard => need a special stuff in the user model
       return;
     }
 
@@ -88,48 +100,86 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval) 
  //////////////////////////////////////
  
 
-    // var randomIdx = Math.floor(Math.random() * (self.collection.length-1));
-    // self.winner = self.collection.splice(randomIdx, 1)[0];
-    // randomIdx = Math.floor(Math.random() * (self.collection.length-1));
-    // self.loser1 = self.collection[randomIdx];
-    // randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
-    // self.loser2 = self.collection[randomIdx2];
-    // randomIdx3 = Math.floor(Math.random() * (self.collection.length-1));
-    // self.loser3 = self.collection[randomIdx3];
+    var randomIdx = Math.floor(Math.random() * (self.collection.length-1));
+    self.winner = self.collection.splice(randomIdx, 1)[0];
+    randomIdx = Math.floor(Math.random() * (self.collection.length-1));
+    self.loser1 = self.collection[randomIdx];
+    randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
+    self.loser2 = self.collection[randomIdx2];
+    randomIdx3 = Math.floor(Math.random() * (self.collection.length-1));
+    self.loser3 = self.collection[randomIdx3];
 
-    // while(randomIdx === randomIdx2) {
-    //   randomIdx = Math.floor(Math.random() * (self.collection.length-1));
-    // }
-    // while(randomIdx2 === randomIdx3) {
-    //   randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
-    // }
-    // while(randomIdx === randomIdx3) {
-    //   randomIdx = Math.floor(Math.random() * (self.collection.length-1));
-    // }
+    while(randomIdx === randomIdx2) {
+      randomIdx = Math.floor(Math.random() * (self.collection.length-1));
+    }
+    while(randomIdx2 === randomIdx3) {
+      randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
+    }
+    while(randomIdx === randomIdx3) {
+      randomIdx = Math.floor(Math.random() * (self.collection.length-1));
+    }
 
-    // var theArtistsArr = [self.winner.artist, self.loser1.artist, self.loser2.artist, self.loser3.artist];
-    // randomArtistPosition = Math.floor(Math.random() * (theArtistsArr.length-1));
-    // // console.log(randomArtistPosition)
-    // console.log("Here are the artists ", theArtistsArr);
+    var theArtistsArr = [self.winner.artist, self.loser1.artist, self.loser2.artist, self.loser3.artist];
+    randomArtistPosition = Math.floor(Math.random() * (theArtistsArr.length-1));
 
-    // shuffleArtists(theArtistsArr);
+// console.log("Here are the artists ", theArtistsArr);
 
-    // function shuffleArtists(artistsArray) {
-    //   self.shuffledArtists = artistsArray.sort(function() {
-    //     return .5 - Math.random();
-    //   });
-    //   console.log("Here is the shuffled array of artists ", self.shuffledArtists);
-    // }
+    shuffleArtists(theArtistsArr);
+
+    function shuffleArtists(artistsArray) {
+      self.shuffledArtists = artistsArray.sort(function() {
+        return .5 - Math.random();
+      });
+// console.log("Here is the shuffled array of artists ", self.shuffledArtists);
+    }
   }
 
-//Tcheck Winner or loser
-  this.check = function(image) {
+//Tcheck winner or loser for find the artist
+
+self.loosingLogic = 0;
+
+  this.checkArtist = function(artist) { 
+    if(!self.roundComplete) {
+      if(artist === self.winner.artist){
+        console.log("WINNER CHICKEN DINNER")
+        self.score += 50;
+        self.currentUser.score += 50;
+        self.roundComplete = true;
+// self.currentUser.$update();
+// win.class = "green"
+// artist.class = "greenArtistWin";
+        $timeout(function() {
+        self.play();
+        }, 500);
+      } else {
+        console.log("lost");  
+        self.loosingLogic--;
+        self.score-= 15;
+        self.currentUser.score -= 15;
+// artist.class = "redArtistLose";
+        if(self.loosingLogic == -2) {
+          $timeout(function() {
+          self.play();
+          }, 500);
+          self.loosingLogic = 0;
+          self.roundComplete = true;
+        }
+      }
+    }
+  console.log(self.loosingLogic)
+  }
+
+//Tcheck Winner or loser for : Pick the right image
+  this.checkImage = function(image) {
     if(!self.roundComplete) {
       if(image === this.winner) {
         image.class = "green";
-        this.score += 1;
+        this.score += 50;
+        self.currentUser.score += 50;
         self.roundComplete = true;
       } else {
+        self.score -= 15;
+        self.currentUser.score -= 15;
         image.class = "red";
         self.roundComplete = true;
       }
@@ -139,13 +189,12 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval) 
         self.play();
       }, 500);
     }
-    
   }
 
 //Timer
   self.timerFunction = function() {
       self.time = self.time - 1;
-      console.log(self.time);
+console.log(self.time);
       if(self.time === 0) {
               // end games
           self.time = 0;
@@ -154,12 +203,4 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval) 
           return
       }
   }
-
 }
-
-
-
-
-
-
-

@@ -5,7 +5,8 @@ var userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   passwordHash: { type: String, required: true },
-  avatar: { type: String, required: true }
+  avatar: { type: String, required: true },
+  score: { type: Number, default: 0 }
 });
 
 //To remove certains info from UserSchema when displayed in JSON format, for security purposes

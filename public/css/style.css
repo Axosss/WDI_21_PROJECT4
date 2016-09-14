@@ -14,12 +14,21 @@ font-family: 'Playfair Display', serif;
   width: 100%;
 }
 
-.red {
-  border: 5px solid red;
-}
-.green {
-  border: 5px solid green;
-}
+/*Dynamic css class*/
+  .red {
+    border: 5px solid red;
+  }
+  .green {
+    border: 5px solid green;
+  }
+
+  .greenArtistWin {
+    background-color: green;
+  }
+
+  .redArtistLose {
+    background-color: red;
+  }
 
 .mainHeader {
   margin-top: 10%;
@@ -46,5 +55,8 @@ font-family: 'Playfair Display', serif;
   border-radius: 48px;
   width: 100%;
 }
- 
+
+ul {
+  list-style: none
+}
 

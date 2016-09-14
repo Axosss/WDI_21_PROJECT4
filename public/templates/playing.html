@@ -1,9 +1,18 @@
-<h1>Pick the right one</h1>
-<h2>{{ main.time }}</h2>
-<br>
-<h5>Which one was made by "{{ main.winner.artist }}" ?</h5>
-<br>
-<!-- <a href="https://www.brooklynmuseum.org/opencollection/collections/{{ main.selectedCollection }}" target="_blank"><p>Learn more about this collection </p></a> -->
+
+<div ng-show="main.levelToggle">
+  <h1 class="font">Pick the right image ?</h1>
+  <h2>{{ main.time }}</h2>
+  <br>
+  <h5>Which one was made by "{{ main.winner.artist }}" ?</h5>
+  <br>
+  <!-- <a href="https://www.brooklynmuseum.org/opencollection/collections/{{ main.selectedCollection }}" target="_blank"><p>Learn more about this collection </p></a> -->
+  <div ng-hide="main.gameEnd">
+    <img ng-click="main.checkImage(main.a)" ng-src="{{ main.a.imageUrl }}" ng-class="main.a.class">
+    <img ng-click="main.checkImage(main.b)" ng-src="{{ main.b.imageUrl }}" ng-class="main.b.class">
+    <br>
+    <p>{{ main.score }} points</p>
+  </div>
+</div>
 
 <div ng-show="main.gameEnd">
   <h1>YOU FINISHED </h1>
@@ -11,25 +20,16 @@
   <a href="https://www.brooklynmuseum.org/opencollection/collections/{{ main.selectedCollection }}" target="_blank"><p>Learn more about this collection </p></a>
 </div>
 
-
-<div ng-hide="main.gameEnd">
-  <img ng-click="main.check(main.a)" ng-src="{{ main.a.imageUrl }}" ng-class="main.a.class">
-  <img ng-click="main.check(main.b)" ng-src="{{ main.b.imageUrl }}" ng-class="main.b.class">
-  <br>
-  <p>{{ main.score }} points</p>
-</div>
-
-
-
 <!-- Other level -->
-
-<h1>Who is the painter</h1>
-<div ng-hide="main.gameEnd">
-  <img ng-src="{{ main.winner.imageUrl }}">
-  <ul>
-    <li ng-repeat="artist in main.shuffledArtists">
-      {{ artist }}
-    </li>
-  </ul>
-  <p>{{ main.score }} points</p>
+<div ng-hide="main.levelToggle">
+  <h1 class="font">Who is the Artist ?</h1>
+  <div ng-hide="main.gameEnd">
+    <img ng-src="{{ main.winner.imageUrl }}" ng-class="main.win.class">
+    <ul>
+      <button ng-click="main.checkArtist(artist)" ng-repeat="artist in main.shuffledArtists track by $index" ng-class="main.artist.class">
+        {{ artist }}
+      </button>
+    </ul>
+    <p>{{ main.score }} points</p>
+  </div>
 </div>
