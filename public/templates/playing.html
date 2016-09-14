@@ -1,4 +1,3 @@
-<br>
 <h1>Pick the right one</h1>
 <h2>{{ main.time }}</h2>
 <br>
@@ -16,17 +15,21 @@
 <div ng-hide="main.gameEnd">
   <img ng-click="main.check(main.a)" ng-src="{{ main.a.imageUrl }}" ng-class="main.a.class">
   <img ng-click="main.check(main.b)" ng-src="{{ main.b.imageUrl }}" ng-class="main.b.class">
+  <br>
+  <p>{{ main.score }} points</p>
 </div>
 
-<p>{{ main.score }} points</p>
 
 
 <!-- Other level -->
 
 <h1>Who is the painter</h1>
-<img ng-src="{{ main.winner.imageUrl }}">
-
-<p>{{ main.winner.artist }}</p>
-<p>{{ main.loser1.artist }}</p>
-<p>{{ main.loser2.artist }}</p>
-<p>{{ main.loser3.artist }}</p>
+<div ng-hide="main.gameEnd">
+  <img ng-src="{{ main.winner.imageUrl }}">
+  <ul>
+    <li ng-repeat="artist in main.shuffledArtists">
+      {{ artist }}
+    </li>
+  </ul>
+  <p>{{ main.score }} points</p>
+</div>

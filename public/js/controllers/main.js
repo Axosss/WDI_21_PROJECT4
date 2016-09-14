@@ -2,8 +2,8 @@ angular
   .module('GuessWhart')
   .controller('MainController', MainController);
 
-MainController.$inject = ["musuem", "$rootScope", "$state", "$auth", "$timeout"];
-function MainController(musuem, $rootScope, $state, $auth, $timeout) {
+MainController.$inject = ["musuem", "$rootScope", "$state", "$auth", "$timeout", "$interval"];
+function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval) {
   var self = this;
 
   this.collections = [];
@@ -11,7 +11,10 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout) {
   this.selectedCollection = null;
   this.currentUser = $auth.getPayload();
   this.errorMessage = null;
-  self.score = 0;
+  this.score = 0;
+  this.shuffledArtists;
+  this.roundComplete;
+  // this.time = 5;
 
 // Token 
  this.logout = function logout() {
@@ -58,8 +61,10 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout) {
   }
 
   this.play = function() {
+    self.score = 0
     self.gameEnd = false;
-    // self.timer();
+    self.roundComplete = false;
+    // self.beginTimer = $interval(self.timerFunction, 1000);
     if(self.collection.length < 2) {
       self.gameEnd = true;
       // save to leaderboard => need a special stuff in the user model
@@ -81,56 +86,78 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout) {
  //////////////////////////////////////
  // Other level : Who is the painter //
  //////////////////////////////////////
+ 
 
-    var randomIdx = Math.floor(Math.random() * (self.collection.length-1));
-    //SPLICE the correct image from the array
-    self.winner = self.collection.splice(randomIdx, 1)[0];
-    randomIdx = Math.floor(Math.random() * (self.collection.length-1));
-    self.loser1 = self.collection[randomIdx];
-    self.loser2 = self.collection[randomIdx];
-    self.loser3 = self.collection[randomIdx];
+    // var randomIdx = Math.floor(Math.random() * (self.collection.length-1));
+    // self.winner = self.collection.splice(randomIdx, 1)[0];
+    // randomIdx = Math.floor(Math.random() * (self.collection.length-1));
+    // self.loser1 = self.collection[randomIdx];
+    // randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
+    // self.loser2 = self.collection[randomIdx2];
+    // randomIdx3 = Math.floor(Math.random() * (self.collection.length-1));
+    // self.loser3 = self.collection[randomIdx3];
+
+    // while(randomIdx === randomIdx2) {
+    //   randomIdx = Math.floor(Math.random() * (self.collection.length-1));
+    // }
+    // while(randomIdx2 === randomIdx3) {
+    //   randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
+    // }
+    // while(randomIdx === randomIdx3) {
+    //   randomIdx = Math.floor(Math.random() * (self.collection.length-1));
+    // }
+
+    // var theArtistsArr = [self.winner.artist, self.loser1.artist, self.loser2.artist, self.loser3.artist];
+    // randomArtistPosition = Math.floor(Math.random() * (theArtistsArr.length-1));
+    // // console.log(randomArtistPosition)
+    // console.log("Here are the artists ", theArtistsArr);
+
+    // shuffleArtists(theArtistsArr);
+
+    // function shuffleArtists(artistsArray) {
+    //   self.shuffledArtists = artistsArray.sort(function() {
+    //     return .5 - Math.random();
+    //   });
+    //   console.log("Here is the shuffled array of artists ", self.shuffledArtists);
+    // }
   }
 
+//Tcheck Winner or loser
   this.check = function(image) {
-    if(image === this.winner) {
-      image.class = "green";
-      this.score += 1;
-    } else {
-      image.class = "red";
-    }
+    if(!self.roundComplete) {
+      if(image === this.winner) {
+        image.class = "green";
+        this.score += 1;
+        self.roundComplete = true;
+      } else {
+        image.class = "red";
+        self.roundComplete = true;
+      }
 
-    $timeout(function() {
-      image.class = "";
-      self.play();
-    }, 500);
+      $timeout(function() {
+        image.class = "";
+        self.play();
+      }, 500);
+    }
+    
   }
 
-// #Timer
-  self.timer = function(){
-    self.time = 5;
-    self.timer = setInterval(function() {
-      self.time--;
-// console.log(self.time)
+//Timer
+  self.timerFunction = function() {
+      self.time = self.time - 1;
+      console.log(self.time);
       if(self.time === 0) {
-        // end games
-        // console.log(self.time)
-        self.time = 0;
-        self.gameEnd=true;
+              // end games
+          self.time = 0;
+          self.gameEnd = true;
+          $interval.cancel(self.beginTimer);
+          return
       }
-    }, 1000);
-  } 
+  }
+
 }
 
 
-/// Test function to disable click event 
-//   self.flag = 0;
-//   self.disableClick = function(n) {
-//      if (n && n !== self.flag) {
-//          self.flag = n;
-//          alert("Clicked!");
-//      }
-//      return false;
-//   }
 
 
 
