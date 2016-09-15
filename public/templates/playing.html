@@ -1,36 +1,58 @@
-<div ng-show="main.levelToggle">
-  <h1 class="font">Pick the right image ?</h1>
-  <br>
-
-  <div ng-hide="main.gameEnd">
-    <h5>Which one was made by "{{ main.winner.artist }}" ?</h5>
-    <br>
-    <img ng-click="main.checkImage(main.a)" ng-src="{{ main.a.imageUrl }}" ng-class="main.a.class">
-    <img ng-click="main.checkImage(main.b)" ng-src="{{ main.b.imageUrl }}" ng-class="main.b.class">
-    <br>
-    <p>{{ main.score }} points</p>
-    <h2>{{ main.time }}</h2>
+<div ng-show="main.playingToggle">
+  <!-- Level 1 : Pick the right painting -->
+  <div ng-show="main.levelToggle">
+    <div ng-hide="main.gameEnd">
+      <h1 class="font levelHeaders">Pick the right image ?</h1>
+      <br>
+      <h5 class="level1title">Which one was made by "{{ main.winner.artist }}" ?</h5>
+      <br>
+      <div class="imagesImages">
+        <img ng-click="main.checkImage(main.a)" ng-src="{{ main.a.imageUrl }}" ng-class="main.a.class" class="level1Image">
+        <img ng-click="main.checkImage(main.b)" ng-src="{{ main.b.imageUrl }}" ng-class="main.b.class" class="level1Image">
+      </div>
+      <br>
+      <p class="points">{{ main.score }} points</p>
+      <progress max="60" ng-value="main.time"></progress>
+      <!-- <h2>{{ main.time }}</h2> -->
+    </div>
   </div>
-</div>
 
-<!-- level 2 : Check Artist-->
-<div ng-hide="main.levelToggle">
-  <h1 class="font">Who is the Artist ?</h1>
-  <div ng-hide="main.gameEnd">
-    <img ng-src="{{ main.winner.imageUrl }}" ng-class="main.win.class">
-    <ul>
-      <button ng-click="main.checkArtist(artist)" ng-repeat="artist in main.shuffledArtists track by $index" ng-class="main.artist.class">
-        {{ artist }}
-      </button>
-    </ul>
-    <p>{{ main.score }} points</p>
-    <h2>{{ main.time }}</h2>
+  <!-- level 2 : Pick the right Artist-->
+  <div ng-hide="main.levelToggle">
+    <div ng-hide="main.gameEnd">
+    <h1 class="font levelHeaders">Who is the Artist ?</h1>
+      <div class="imageAndButtons">
+        <img ng-src="{{ main.winner.imageUrl }}" ng-class="main.win.class" class="imageImage">
+        <ul>
+        <div class="buttonsss">
+          <button ng-click="main.checkArtist(artist)" ng-repeat="artist in main.shuffledArtists track by $index" ng-class="main.artist.class">
+            {{ artist }}
+          </button>
+        </div>
+        </ul>
+      </div>
+      <p class="points">{{ main.score }} points</p>
+      <progress max="60" ng-value="main.time"></progress>
+      <!-- <h2>{{ main.time }}</h2> -->
+    </div>
   </div>
-</div>
 
-<!-- Ending -->
-<div ng-show="main.gameEnd">
-  <h1>YOU FINISHED </h1>
-  <button ui-sref="game">Start a new game</button>
-  <a href="https://www.brooklynmuseum.org/opencollection/collections/{{ main.selectedCollection }}" target="_blank"><p>Learn more about this collection </p></a>
+  <!-- Ending -->
+  <div ng-show="main.gameEnd">
+    <h1 class="finishTitle">YOU FINISHED </h1>
+    <button ui-sref="game" class="finishRestart">Start a new game</button>
+    <a href="https://www.brooklynmuseum.org/opencollection/collections/{{ main.selectedCollection }}" target="_blank"><p class="finishLink">Learn more about this collection </p></a>
+
+    <div class="moving_div" id="l1"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/NotCommons-emblem-copyrighted.svg/50px-NotCommons-emblem-copyrighted.svg.png"></div>
+    <div class="moving_div" id="l2"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/NotCommons-emblem-copyrighted.svg/50px-NotCommons-emblem-copyrighted.svg.png"></div>
+    <div class="moving_div" id="l3"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/NotCommons-emblem-copyrighted.svg/50px-NotCommons-emblem-copyrighted.svg.png"></div>
+    <div class="moving_div" id="l4"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/NotCommons-emblem-copyrighted.svg/50px-NotCommons-emblem-copyrighted.svg.png"></div>
+    <div class="moving_div" id="l5"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/NotCommons-emblem-copyrighted.svg/50px-NotCommons-emblem-copyrighted.svg.png"></div>
+    <div class="moving_div" id="m6"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/NotCommons-emblem-copyrighted.svg/50px-NotCommons-emblem-copyrighted.svg.png"></div>
+    <div class="moving_div" id="r1"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/NotCommons-emblem-copyrighted.svg/50px-NotCommons-emblem-copyrighted.svg.png"></div>
+    <div class="moving_div" id="r2"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/NotCommons-emblem-copyrighted.svg/50px-NotCommons-emblem-copyrighted.svg.png"></div>
+    <div class="moving_div" id="r3"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/NotCommons-emblem-copyrighted.svg/50px-NotCommons-emblem-copyrighted.svg.png"></div>
+    <div class="moving_div" id="r4"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/NotCommons-emblem-copyrighted.svg/50px-NotCommons-emblem-copyrighted.svg.png"></div>
+    <div class="moving_div" id="r5"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/NotCommons-emblem-copyrighted.svg/50px-NotCommons-emblem-copyrighted.svg.png"></div>
+  </div>
 </div>

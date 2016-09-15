@@ -1,19 +1,23 @@
 <div id="instructions">
-  <h1 class="font"><u>Instructions</u></h1>
+  <h1 class="font" id="instructionsTitle"><u>Instructions</u></h1>
+  <br>
 
-  <h3 class="font">Choose a collection</h3>
-  <select ng-model="main.selectedCollection" ng-change="main.collectionChanged()">
-     <option value="">Please select a collection</option>
+  <h3 class="font gameTitle">Choose a collection</h3>
+  <select ng-model="main.selectedCollection" ng-change="main.collectionChanged()" class="gameDropdown">
+     <option selected disabled value="">Please select a collection</option>
      <option ng-repeat="collection in main.collections" ng-value="collection.id">{{ collection.name }}</option>
   </select> 
-
-  <h3 class="font">Choose a level</h3>
-  <select name="level" ng-model="main.level">
+  <br>
+  <br>
+  <h3 class="font gameTitle">Choose a level</h3>
+  <select name="level" ng-model="main.level" class="gameDropdown">
      <option selected disabled value="">Please choose a level</option>
      <option value="level1">2 Pictures : 1 Suggestion </option>
      <option value="level2">1 Picture : 4 Suggestions</option>
   </select> 
-
-   <button ui-sref="playing" ng-click="main.selectCollection()" ng-disabled="!main.selectedCollection; !main.level">PLAY</button>
+  <br>
+  <br>
+   <button ui-sref="playing" ng-click="main.selectCollection()" ng-disabled="!main.selectedCollection || !main.level" class="playButton font">PLAY</button>
+  <br>
   <br>
 </div>

@@ -11,18 +11,19 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
   this.selectedCollection = "";
   this.level;
   this.levelToggle;
+  this.playingToggle;
   this.currentUser = $auth.getPayload();
 // var userData = $auth.getPayload();
 
 // User.get({ id: userData._id }, function(user) {
 //   self.currenUser = user;
 // });
-
   this.errorMessage = null;
   this.score = 0;
   this.shuffledArtists;
   this.roundComplete;
-  this.time = 10;
+  this.time;
+
 
   // Token 
   this.logout = function logout() {
@@ -44,10 +45,7 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
   });
 
   $rootScope.$on("$stateChangeStart", function() {
-    console.log('state change start main: self.collections:', self.collections);
     self.errorMessage = null;
-    // self.selectedCollection = "";
-    // self.level = null;
   });
 
   // Brooklyn API
@@ -63,12 +61,14 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
     console.log('collection changed: self.collections:', self.collections);
   };
 
+
   this.selectCollection = function() {
     musuem.getCollection(this.selectedCollection)
       .then(function(dataThatWeWant){
         $rootScope.$applyAsync(function() {
           self.collection = dataThatWeWant;
-          self.time = 10;
+          self.time = 60000;
+          self.score= 0;
           if(self.level === "level1") {
             self.levelToggle = true;
             self.level1();
@@ -77,10 +77,14 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
             self.levelToggle = false;
             self.level2();
           }
+          self.playingToggle = true;
         });
       });
   }
 
+  //////////////////////////////////////
+  // Level 1 : Who is the Artist     //
+  //////////////////////////////////////
   this.level1 = function() {
     self.gameEnd = false;
     self.roundComplete = false;
@@ -104,7 +108,7 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
  
 
  //////////////////////////////////////
- // Other level : Who is the painter //
+ // Level 2 : Who is the painter     //
  //////////////////////////////////////
  }
  this.level2 = function() {
@@ -112,39 +116,33 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
     self.roundComplete = false;
     $interval.cancel(self.beginTimer);
     self.beginTimer = $interval(self.timerFunction, 1000);
-    if(self.collection.length < 2) {
+    if(self.collection.length < 4) {
       self.gameEnd = true;
       return;
     }
 
     var randomIdx = Math.floor(Math.random() * (self.collection.length-1));
     self.winner = self.collection.splice(randomIdx, 1)[0];
-    randomIdx = Math.floor(Math.random() * (self.collection.length-1));
-    self.loser1 = self.collection[randomIdx];
-    randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
-    self.loser2 = self.collection[randomIdx2];
-    randomIdx3 = Math.floor(Math.random() * (self.collection.length-1));
-    self.loser3 = self.collection[randomIdx3];
 
-    while(randomIdx === randomIdx2) {
-      randomIdx = Math.floor(Math.random() * (self.collection.length-1));
-    }
-    while(randomIdx2 === randomIdx3) {
-      randomIdx2 = Math.floor(Math.random() * (self.collection.length-1));
-    }
-    while(randomIdx === randomIdx3) {
-      randomIdx = Math.floor(Math.random() * (self.collection.length-1));
-    }
+    var artists = self.collection.map(function(piece){
+      return piece.artist;
+    });
 
-    var theArtistsArr = [self.winner.artist, self.loser1.artist, self.loser2.artist, self.loser3.artist];
-    randomArtistPosition = Math.floor(Math.random() * (theArtistsArr.length-1));
+    var uniqueArtists = [];
 
-// console.log("Here are the artists ", theArtistsArr);
+    artists.forEach(function(artist) {
+      if(uniqueArtists.indexOf(artist) === -1 && uniqueArtists.indexOf(self.winner.name) === -1) {
+        uniqueArtists.push(artist);
+      }
+    });
 
-    shuffleArtists(theArtistsArr);
+    theArtistsArr = uniqueArtists.slice(0,3);
+    theArtistsArr.push(self.winner.artist);
 
-    function shuffleArtists(artistsArray) {
-      self.shuffledArtists = artistsArray.sort(function() {
+    self.shuffledArtists = shuffle(theArtistsArr);
+
+    function shuffle(arr) {
+      return arr.sort(function() {
         return .5 - Math.random();
       });
 // console.log("Here is the shuffled array of artists ", self.shuffledArtists);
@@ -152,36 +150,24 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
   }
 
 //Tcheck winner or loser for find the artist
-self.loosingLogic = 0;
+// self.loosingLogic = 0;
 
   this.checkArtist = function(artist) { 
     if(!self.roundComplete) {
       if(artist === self.winner.artist){
-        console.log("WINNER CHICKEN DINNER")
         self.score += 50;
-        self.currentUser.score += 50;
         self.roundComplete = true;
-// self.currentUser.$update();
-// win.class = "green"
-artist.class = "greenArtistWin";
-        $timeout(function() {
-        self.level2();
-        }, 500);
+// artist.class = "greenArtistWin";
       } else if(artist !== self.winner.artist) {
         console.log("lost");  
-        self.loosingLogic--;
         self.score-= 15;
         self.currentUser.score -= 15;
-// artist.class = "redArtistLose";
-        if(self.loosingLogic === -2) {
-          $timeout(function() {
-          self.level2();
-          }, 500);
-          self.roundComplete = true;
-        }
       }
+      $timeout(function() {
+        self.level2();
+      }, 500);
     }
-  console.log(self.loosingLogic)
+ 
   }
 
 //Tcheck Winner or loser for : Pick the right image
@@ -208,21 +194,13 @@ artist.class = "greenArtistWin";
 //Timer
   self.timerFunction = function() {
     self.time--;
-    console.log(self.time);
-    if(self.time === 0) {
-        self.gameEnd = true;
-        console.log(self.gameEnd)
-        $interval.cancel(self.beginTimer);
-    } else if (self.time < 0) {
-        $interval.cancel(self.beginTimer);
-        self.gameEnd = true;
+    if(self.time <= 0) {
+      self.gameEnd = true;
+      console.log(self.gameEnd)
+      $interval.cancel(self.beginTimer);
     }
   }
-// Set dropdown to default
-  // self.dropdownDefault = function() {
-  //   self.level = "";
-  //   self.selectedCollection = "";
-  // }
+
 }
 
 

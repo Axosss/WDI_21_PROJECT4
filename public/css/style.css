@@ -1,7 +1,21 @@
 body {
-  /*background-color: red;*/
  text-align: center;
 }
+
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+
+.navbar-brand {
+  float: none !important; 
+}
+
 .font {
 font-family: 'Playfair Display', serif;
 }
@@ -14,6 +28,13 @@ font-family: 'Playfair Display', serif;
   width: 100%;
 }
 
+.levelHeaders {
+  margin-top: 20px;
+  font-size: 50px;
+  font-variant: small-caps;
+}
+
+
 /*Dynamic css class*/
   .red {
     border: 5px solid red;
@@ -22,22 +43,7 @@ font-family: 'Playfair Display', serif;
     border: 5px solid green;
   }
 
-  .greenArtistWin {
-    background-color: green;
-  }
-
-  .redArtistLose {
-    background-color: red;
-  }
-
-.mainHeader {
-  margin-top: 10%;
-}
-
-.description {
-  margin: 5%;
-}
-
+/*Home*/
 .playButton {
     width: 15%;
     height: 49px;
@@ -50,13 +56,399 @@ font-family: 'Playfair Display', serif;
     margin-top: 10px;
 }
 
-#instructions { 
-  border: 1px solid black;
-  border-radius: 48px;
-  width: 100%;
+.mainHeader {
+  margin-top: 10%;
+}
+
+.description {
+  margin: 5%;
+}
+
+button.ng-binding.ng-scope {
+    padding: 10px;
+    margin: 15px auto;
+    display: list-item;
+}
+
+.imageImage {
+  max-width: 400px;
+  height: 400px;
 }
 
 ul {
   list-style: none
 }
 
+/*Level 2 aka Pick the correct artist name */
+.imageAndButtons {
+  position: relative;
+  /*border: 1px solid red;*/
+  display: inline-flex;
+  margin-top: 20px;
+}
+
+.buttonsss {
+  position: relative;
+  /*border: 1px solid blue;*/
+  top: 70px;
+}
+/*Game page*/
+#instructions {
+  margin-top: 5%;
+  border: 1px solid black;
+  border-radius: 48px;
+  display: inline-block;
+  min-width: 700px;
+}
+
+#instructionsTitle {
+  font-size: 80px;
+  margin-top: 25px;
+
+}
+
+/*Progress bar*/
+progress[value]{
+  -webkit-appearance: none;
+   appearance: none;
+  width: 80%;
+  height: 20px;
+  border-radius: 5px;
+}
+progress{
+  -webkit-appearance: none;
+   appearance: none;
+  width: 80%;
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+progress[value]::-webkit-progress-bar {
+  background-color: white;
+  border-radius: 5px;
+
+}
+
+progress[value]::-webkit-progress-value {
+  background-color: black;
+  border-radius: 5px;
+}
+
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 667px) {
+
+  .playButton {
+      width: 15%;
+      height: 49px;
+      font-size: 25px;
+      background-color: transparent;
+      border-bottom: 2px solid black;
+      border-top: 2px solid black;
+      border-left: transparent;
+      border-right: transparent;
+      margin-top: 10px;
+  }
+
+  .mainHeader {
+    margin-top: 30%;
+    font-size: 125px;
+    margin-bottom: 15%;
+
+  }
+
+  .description {
+    margin: 5%;
+  }
+
+
+  /*Game page*/
+  #instructions {
+    margin-top: 10%;
+    border: 1px solid black;
+    border-radius: 48px;
+    display: inline-block;
+    min-width: 700px;
+    height: 600px;
+  }
+
+  #instructionsTitle {
+    font-size: 80px;
+    margin-top: 25px;
+
+  }
+
+  .gameTitle {
+    font-size: 45px;
+  }
+
+  .gameDropdown {
+    font-size: 30px;
+  }
+
+  .playButton {
+    width: 29%;
+    height: 72px;
+    font-size: 41px;
+    font-family: 
+    color: black;
+    background-color: transparent;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    border-left: transparent;
+    border-right: transparent;
+    margin-top: 60px;
+  }
+  /*NavBar*/
+  .navbar {
+      position: relative;
+      padding: 2.5rem 1rem;
+  }
+
+  .navbar-brand {
+      float: left;
+      padding-top: .25rem;
+      padding-bottom: .25rem;
+      margin-right: 1rem;
+      font-size: 3rem;
+      font-family: 'Playfair Display', serif;
+  }
+
+  .navbar-nav .nav-link {
+      padding-left: 2.425rem;
+      font-size: 30px;
+  }
+  /*Levels */
+ .levelHeaders {
+   margin-top: 20px;
+   font-size: 70px;
+   font-variant: small-caps;
+ }
+
+  .points {
+      font-size: 50px;
+      margin: 30px;
+  }
+    /*Progress bar*/
+  progress[value]{
+    -webkit-appearance: none;
+     appearance: none;
+    width: 80%;
+    height: 30px;
+    border-radius: 5px;
+  }
+  progress{
+    -webkit-appearance: none;
+     appearance: none;
+    width: 100%;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+  progress[value]::-webkit-progress-bar {
+    background-color: white;
+    border-radius: 5px;
+  }
+  progress[value]::-webkit-progress-value {
+    background-color: black;
+    border-radius: 5px;
+  }
+
+  /*Level 1*/
+  .imagesImages {
+    display: inline;
+    width: 800px;
+    margin-left: -47px;
+    padding-left: -200px;
+  }
+
+  .level1Image {
+    height: 550px;
+    max-width: 100%;
+    margin: 15px;
+  }
+
+  /*Level 2 aka Pick the correct artist name */
+  .imageAndButtons {
+    position: relative;
+    /*border: 1px solid red;*/
+    display: block;
+    margin-top: 20px;
+
+  }
+  .imageImage {
+      max-width: 600px;
+      height: 600px;
+      margin: 25px;
+  }
+
+  .buttonsss {
+    position: relative;
+    /*border: 1px solid blue;*/
+    top: 1px;
+    left: -19px;
+  }
+
+  button.ng-binding.ng-scope {
+      padding: 20px;
+      margin: 15px auto;
+      display: list-item;
+      font-size: 35px;
+      width: 600px;
+  }
+
+
+  /*Game page*/
+  #instructions {
+    margin-top: 15%;
+    border: 1px solid black;
+    border-radius: 48px;
+    display: inline-block;
+    min-width: 700px;
+  }
+
+  #instructionsTitle {
+    font-size: 80px;
+    margin-top: 25px;
+
+  }
+
+}
+
+/*Moving div*/
+
+.moving_div  {
+  max-height: 50px;
+  max-width: 50px;
+  /*border: 2px solid black;*/
+  display: inline;
+  position: absolute;
+  left: -50%
+}
+
+#l1 {
+   -webkit-animation-name: i1; /* Chrome, Safari, Opera */
+   -webkit-animation-duration: 6s; /* Chrome, Safari, Opera */
+   animation-timing-function: linear;
+   -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+   -webkit-animation-direction: reverse; /* Chrome, Safari, Opera */
+   
+}
+@-webkit-keyframes i1 {
+    0%   {left:-150px; top:150px; opacity:0;}
+    100% {left:-100px; top:000px; opacity:0,4;}
+}
+#l2 {
+   -webkit-animation-name: i2; /* Chrome, Safari, Opera */
+   -webkit-animation-duration: 3s; /* Chrome, Safari, Opera */
+   animation-timing-function: linear;
+   -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+   -webkit-animation-direction: reverse; /* Chrome, Safari, Opera */  
+}
+@-webkit-keyframes i2 {
+    0%   {left: 0px; top:150px; opacity:0}
+    100% {left:-20px; top:000px; opacity:0,4}
+}
+#l3 {
+   -webkit-animation-name: i3; /* Chrome, Safari, Opera */
+   -webkit-animation-duration: 3s; /* Chrome, Safari, Opera */
+   animation-timing-function: linear;
+   -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+   -webkit-animation-direction: reverse; /* Chrome, Safari, Opera */  
+}
+@-webkit-keyframes i3 {
+    0%   {left:-200px; top:150px; opacity:0}
+    100% {left:-130px;  top:000px; opacity:0,4}
+}
+#l4 {
+   -webkit-animation-name: i4; /* Chrome, Safari, Opera */
+   -webkit-animation-duration: 3s; /* Chrome, Safari, Opera */
+   animation-timing-function: linear;
+   -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+   -webkit-animation-direction: reverse; /* Chrome, Safari, Opera */  
+}
+@-webkit-keyframes i4 {
+    0%   {left:-150px; top:150px; opacity:0}
+    100% {left:-60px; top:000px;  opacity:0,3}
+}
+#l5 {
+   -webkit-animation-name: i4; /* Chrome, Safari, Opera */
+   -webkit-animation-duration: 3s; /* Chrome, Safari, Opera */
+   animation-timing-function: linear;
+   -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+   -webkit-animation-direction: reverse; /* Chrome, Safari, Opera */  
+}
+@-webkit-keyframes i4 {
+    0%   {left:-100px; top:100px; opacity:0}
+    100% {left:-60px; top:000px;  opacity:0,2}
+}
+/*MIDDLE MOVING*/
+#m6 {
+   -webkit-animation-name: i6; /* Chrome, Safari, Opera */
+   -webkit-animation-duration: 3s; /* Chrome, Safari, Opera */
+   animation-timing-function: linear;
+   -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+   -webkit-animation-direction: reverse; /* Chrome, Safari, Opera */  
+}
+@-webkit-keyframes i6 {
+    0%   {left:0px; top:100px; opacity:0}
+    100% {left:0px; top:000px; opacity:0,6}
+}
+/*RIGHT SIDE MOVING*/
+#r1 {
+   -webkit-animation-name: r1; /* Chrome, Safari, Opera */
+   -webkit-animation-duration: 5s; /* Chrome, Safari, Opera */
+   animation-timing-function: linear;
+   -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+   -webkit-animation-direction: reverse; /* Chrome, Safari, Opera */
+   
+}
+@-webkit-keyframes r1 {
+    0%   {left:50px; top:150px; opacity:0}
+    100% {left:60px; top:000px; opacity:0,4}
+}
+#r2 {
+   -webkit-animation-name: r2; /* Chrome, Safari, Opera */
+   -webkit-animation-duration: 3s; /* Chrome, Safari, Opera */
+   animation-timing-function: linear;
+   -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+   -webkit-animation-direction: reverse; /* Chrome, Safari, Opera */  
+}
+@-webkit-keyframes r2 {
+    0%   {left:70px; top:150px;  opacity:0}
+    100% {left:70px; top:000px;opacity:0,2}
+}
+#r3 {
+   -webkit-animation-name: r3; /* Chrome, Safari, Opera */
+   -webkit-animation-duration: 4s; /* Chrome, Safari, Opera */
+   animation-timing-function: linear;
+   -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+   -webkit-animation-direction: reverse; /* Chrome, Safari, Opera */  
+}
+@-webkit-keyframes r3 {
+    0%   {left:200px; top:150px; opacity:0}
+    100% {left:140px; top:000px; opacity:1}
+}
+#r4 {
+   -webkit-animation-name: r4; /* Chrome, Safari, Opera */
+   -webkit-animation-duration: 6s; /* Chrome, Safari, Opera */
+   animation-timing-function: linear;
+   -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+   -webkit-animation-direction: reverse; /* Chrome, Safari, Opera */  
+}
+@-webkit-keyframes r4 {
+    0%   {left:150px; top:150px; opacity:0}
+    100% {left:110px; top:000px; opacity:0,2}
+}
+#r5 {
+   -webkit-animation-name: r5; /* Chrome, Safari, Opera */
+   -webkit-animation-duration: 3s; /* Chrome, Safari, Opera */
+   animation-timing-function: linear;
+   -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+   -webkit-animation-direction: reverse; /* Chrome, Safari, Opera */  
+}
+@-webkit-keyframes r5 {
+    0%   {left:100px; top:100px; opacity:0}
+    100% {left:60px; top:000px; opacity:0,4}
+}
