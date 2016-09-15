@@ -255,6 +255,29 @@ and (max-device-width : 667px) {
     border-radius: 5px;
   }
 
+  /*Endign*/
+
+  .finishTitle {
+      font-size: 80px;
+      margin-top: 130px;
+  }
+
+  .finishLink {
+     font-size: 40px;
+     margin-top: 100px;
+  }
+
+ .finishRestart {
+     font-size: 51px;
+     margin-top: 100px;
+     background-color: white;
+     border-top: 3px solid black;
+     border-bottom: 3px solid black;
+     border-left: 0px;
+     border-right: 0px;
+     padding: 9px;
+ }
+
   /*Level 1*/
   .imagesImages {
     display: inline;
@@ -314,7 +337,53 @@ and (max-device-width : 667px) {
 
   }
 
+  /*Forms */
+  .formsHeaders {
+    margin top: 30px; 
+  }
+
+    /*Register*/
+
+    .form-control {
+        display: block;
+        height: 80px;
+        width: 100%;
+        margin-top: 60px;
+        padding: .5rem .75rem;
+        font-size: 2rem;
+        text-align: center;
+        line-height: 1.25;
+        color: #55595c;
+        background-color: #fff;
+        background-image: none;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        border: 1px solid rgba(0,0,0,.15);
+        border-radius: .25rem;
+    }
+
+  
+    .fbButton {
+        padding-left: 30px;
+        padding-right: 30px;
+        margin-top: 57px;
+        font-size: 40px;
+        background-color: #025aa5;
+        border: #025aa5;
+        color: white;
+        border-radius: 15px;
+    }
+
 }
+
+
+
+
+
+
+
+
+
 
 /*Moving div*/
 

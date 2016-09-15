@@ -67,7 +67,7 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
       .then(function(dataThatWeWant){
         $rootScope.$applyAsync(function() {
           self.collection = dataThatWeWant;
-          self.time = 60000;
+          self.time = 6;
           self.score= 0;
           if(self.level === "level1") {
             self.levelToggle = true;

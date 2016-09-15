@@ -1,6 +1,6 @@
 <h1>Register</h1>
 
-<form ng-submit="register.submit()">
+<form ng-submit="register.submit()" class="formsHeaders">
   <div class="form-group">
     <input type="text" name="username" class="form-control" ng-model="register.user.username" placeholder="Username">
   </div>
@@ -17,5 +17,8 @@
     <input type="avatar" name="avatar" class="form-control" ng-model="register.user.avatar" placeholder="Put link to your avatar">
   </div>
 
-  <input type="submit" value="Submit" class="btn btn-primary">
+  <input type="submit" value="Submit" class="playButton">
+  <br>
+
+  <button ng-click="login.authenticate('facebook')" class="fbButton">Register with Facebook</button>
 </form>
