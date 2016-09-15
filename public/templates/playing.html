@@ -1,26 +1,19 @@
-
 <div ng-show="main.levelToggle">
   <h1 class="font">Pick the right image ?</h1>
-  <h2>{{ main.time }}</h2>
   <br>
-  <h5>Which one was made by "{{ main.winner.artist }}" ?</h5>
-  <br>
-  <!-- <a href="https://www.brooklynmuseum.org/opencollection/collections/{{ main.selectedCollection }}" target="_blank"><p>Learn more about this collection </p></a> -->
+
   <div ng-hide="main.gameEnd">
+    <h5>Which one was made by "{{ main.winner.artist }}" ?</h5>
+    <br>
     <img ng-click="main.checkImage(main.a)" ng-src="{{ main.a.imageUrl }}" ng-class="main.a.class">
     <img ng-click="main.checkImage(main.b)" ng-src="{{ main.b.imageUrl }}" ng-class="main.b.class">
     <br>
     <p>{{ main.score }} points</p>
+    <h2>{{ main.time }}</h2>
   </div>
 </div>
 
-<div ng-show="main.gameEnd">
-  <h1>YOU FINISHED </h1>
-  <button ui-sref="game">Play again ?</button>
-  <a href="https://www.brooklynmuseum.org/opencollection/collections/{{ main.selectedCollection }}" target="_blank"><p>Learn more about this collection </p></a>
-</div>
-
-<!-- Other level -->
+<!-- level 2 : Check Artist-->
 <div ng-hide="main.levelToggle">
   <h1 class="font">Who is the Artist ?</h1>
   <div ng-hide="main.gameEnd">
@@ -31,5 +24,13 @@
       </button>
     </ul>
     <p>{{ main.score }} points</p>
+    <h2>{{ main.time }}</h2>
   </div>
+</div>
+
+<!-- Ending -->
+<div ng-show="main.gameEnd">
+  <h1>YOU FINISHED </h1>
+  <button ui-sref="game">Start a new game</button>
+  <a href="https://www.brooklynmuseum.org/opencollection/collections/{{ main.selectedCollection }}" target="_blank"><p>Learn more about this collection </p></a>
 </div>

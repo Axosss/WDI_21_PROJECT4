@@ -8,7 +8,7 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
 
   this.collections = [];
   this.collection = [];
-  this.selectedCollection = null;
+  this.selectedCollection = "";
   this.level;
   this.levelToggle;
   this.currentUser = $auth.getPayload();
@@ -22,7 +22,7 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
   this.score = 0;
   this.shuffledArtists;
   this.roundComplete;
-  // this.time = 5;
+  this.time = 10;
 
   // Token 
   this.logout = function logout() {
@@ -44,9 +44,11 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
   });
 
   $rootScope.$on("$stateChangeStart", function() {
+    console.log('state change start main: self.collections:', self.collections);
     self.errorMessage = null;
+    // self.selectedCollection = "";
+    // self.level = null;
   });
-
 
   // Brooklyn API
   musuem.getCollections()
@@ -56,28 +58,34 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
       });
     });
 
+  this.collectionChanged = function () {
+    console.log('collection changed: selectedCollection:', self.selectedCollection);
+    console.log('collection changed: self.collections:', self.collections);
+  };
+
   this.selectCollection = function() {
     musuem.getCollection(this.selectedCollection)
       .then(function(dataThatWeWant){
         $rootScope.$applyAsync(function() {
           self.collection = dataThatWeWant;
-          
+          self.time = 10;
           if(self.level === "level1") {
             self.levelToggle = true;
+            self.level1();
           }
           if(self.level === "level2") {
             self.levelToggle = false;
+            self.level2();
           }
-          self.play();
-
         });
       });
   }
 
-  this.play = function() {
+  this.level1 = function() {
     self.gameEnd = false;
     self.roundComplete = false;
-    // self.beginTimer = $interval(self.timerFunction, 1000);
+    $interval.cancel(self.beginTimer);
+    self.beginTimer = $interval(self.timerFunction, 1000);
     if(self.collection.length < 2) {
       self.gameEnd = true;
       return;
@@ -98,7 +106,16 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
  //////////////////////////////////////
  // Other level : Who is the painter //
  //////////////////////////////////////
- 
+ }
+ this.level2 = function() {
+    self.gameEnd = false;
+    self.roundComplete = false;
+    $interval.cancel(self.beginTimer);
+    self.beginTimer = $interval(self.timerFunction, 1000);
+    if(self.collection.length < 2) {
+      self.gameEnd = true;
+      return;
+    }
 
     var randomIdx = Math.floor(Math.random() * (self.collection.length-1));
     self.winner = self.collection.splice(randomIdx, 1)[0];
@@ -135,7 +152,6 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
   }
 
 //Tcheck winner or loser for find the artist
-
 self.loosingLogic = 0;
 
   this.checkArtist = function(artist) { 
@@ -147,21 +163,20 @@ self.loosingLogic = 0;
         self.roundComplete = true;
 // self.currentUser.$update();
 // win.class = "green"
-// artist.class = "greenArtistWin";
+artist.class = "greenArtistWin";
         $timeout(function() {
-        self.play();
+        self.level2();
         }, 500);
-      } else {
+      } else if(artist !== self.winner.artist) {
         console.log("lost");  
         self.loosingLogic--;
         self.score-= 15;
         self.currentUser.score -= 15;
 // artist.class = "redArtistLose";
-        if(self.loosingLogic == -2) {
+        if(self.loosingLogic === -2) {
           $timeout(function() {
-          self.play();
+          self.level2();
           }, 500);
-          self.loosingLogic = 0;
           self.roundComplete = true;
         }
       }
@@ -177,30 +192,37 @@ self.loosingLogic = 0;
         this.score += 50;
         self.currentUser.score += 50;
         self.roundComplete = true;
-      } else {
+      } else if(image !== this.winner) {
         self.score -= 15;
         self.currentUser.score -= 15;
         image.class = "red";
         self.roundComplete = true;
       }
-
       $timeout(function() {
         image.class = "";
-        self.play();
+        self.level1();
       }, 500);
     }
   }
 
 //Timer
   self.timerFunction = function() {
-      self.time = self.time - 1;
-console.log(self.time);
-      if(self.time === 0) {
-              // end games
-          self.time = 0;
-          self.gameEnd = true;
-          $interval.cancel(self.beginTimer);
-          return
-      }
+    self.time--;
+    console.log(self.time);
+    if(self.time === 0) {
+        self.gameEnd = true;
+        console.log(self.gameEnd)
+        $interval.cancel(self.beginTimer);
+    } else if (self.time < 0) {
+        $interval.cancel(self.beginTimer);
+        self.gameEnd = true;
+    }
   }
+// Set dropdown to default
+  // self.dropdownDefault = function() {
+  //   self.level = "";
+  //   self.selectedCollection = "";
+  // }
 }
+
+
