@@ -36,7 +36,7 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
   $rootScope.$on("loggedIn", function() {
     $state.go("home");
     self.currentUser = $auth.getPayload();
-    console.log("lets get the token", self.currentUser);
+    // console.log("lets get the token", self.currentUser);
   });
 
   $rootScope.$on("unauthorized", function() {
@@ -57,8 +57,8 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
     });
 
   this.collectionChanged = function () {
-    console.log('collection changed: selectedCollection:', self.selectedCollection);
-    console.log('collection changed: self.collections:', self.collections);
+    // console.log('collection changed: selectedCollection:', self.selectedCollection);
+    // console.log('collection changed: self.collections:', self.collections);
   };
 
 
@@ -159,7 +159,7 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
         self.roundComplete = true;
 // artist.class = "greenArtistWin";
       } else if(artist !== self.winner.artist) {
-        console.log("lost");  
+        // console.log("lost");  
         self.score-= 15;
         self.currentUser.score -= 15;
       }
@@ -196,7 +196,7 @@ function MainController(musuem, $rootScope, $state, $auth, $timeout, $interval, 
     self.time--;
     if(self.time <= 0) {
       self.gameEnd = true;
-      console.log(self.gameEnd)
+      // console.log(self.gameEnd)
       $interval.cancel(self.beginTimer);
     }
   }
