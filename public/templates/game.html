@@ -1,15 +1,24 @@
 <div id="instructions">
   <h1 class="font" id="instructionsTitle"><u>Instructions</u></h1>
   <br>
-
-  <h3 class="font gameTitle">Choose a collection</h3>
+  <div class="instructionsText">
+    <p>You can pratice your knowledge about different art section. All this through the different collections of the Brooklyn Musuem.</p>
+    <p style="color:#00A6D6"><b><u>You have two different level :</u></b></p>
+    <p><i><u><b>Pick the right image :</b></i></u> 2 Paintings, 1 Artist. Will you get it right ?</p>
+    <p><i><u><b>Who is the Artist ?:</b></i></u> 1 Painting, 4 guess. Which one is it ?</p>
+    <p>Right answer =<span style="color:green"> 50 pts</span></p>
+    <p>Wrong answer =<span style="color:red"> -15 pts</span></p>
+  </div>
+<hr>
+<hr>
+  <h3 class="font gameTitle"><u>Choose a collection</u></h3>
   <select ng-model="main.selectedCollection" ng-change="main.collectionChanged()" class="gameDropdown">
      <option selected disabled value="">Please select a collection</option>
      <option ng-repeat="collection in main.collections" ng-value="collection.id">{{ collection.name }}</option>
   </select> 
   <br>
   <br>
-  <h3 class="font gameTitle">Choose a level</h3>
+  <h3 class="font gameTitle"><u>Choose a level</u></h3>
   <select name="level" ng-model="main.level" class="gameDropdown">
      <option selected disabled value="">Please choose a level</option>
      <option value="level1">2 Pictures : 1 Suggestion </option>

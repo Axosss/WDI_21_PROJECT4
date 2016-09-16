@@ -1,6 +1,10 @@
 body {
  text-align: center;
 }
+.bg-faded {
+    background-color: transparent;
+    margin: 21px;
+}
 
 .navbar .navbar-nav {
   display: inline-block;
@@ -8,6 +12,9 @@ body {
   vertical-align: top;
 }
 
+.navbar-light.bg-faded {
+    border: 1px solid;
+}
 .navbar .navbar-collapse {
   text-align: center;
 }
@@ -147,6 +154,9 @@ ul {
 
 }
 
+.instructionsText {
+    font-size: 16px;
+}
 
 /*Progress bar*/
 progress[value]{
@@ -168,13 +178,28 @@ progress{
 progress[value]::-webkit-progress-bar {
   background-color: white;
   border-radius: 5px;
-
 }
 
 progress[value]::-webkit-progress-value {
   background-color: black;
   border-radius: 5px;
 }
+
+
+/*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*/
+/*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*/
+/*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*/
+/*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*/
+/*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*/
+/*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*/
+/*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*/
+/*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*/
+/*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*/
+/*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*/
+/*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*/
+/*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*//*MEDIA QUERY*/
+
+
 
 @media only screen 
 and (min-device-width : 375px) 
@@ -211,13 +236,17 @@ and (max-device-width : 667px) {
     border-radius: 48px;
     display: inline-block;
     min-width: 700px;
-    height: 600px;
+    height: 900px;
   }
 
   #instructionsTitle {
     font-size: 80px;
     margin-top: 25px;
 
+  }
+
+  .instructionsText {
+      font-size: 16px;
   }
 
   .gameTitle {
